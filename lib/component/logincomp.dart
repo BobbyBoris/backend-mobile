@@ -1,9 +1,7 @@
 import 'package:agile02/MainHome.dart';
-import 'package:agile02/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:agile02/page/register.dart';
-import 'package:agile02/providers/data_provider.dart';
 
 import '../providers/provUtama.dart';
 
@@ -93,11 +91,12 @@ class LoginComp extends StatelessWidget {
                                 emailController.text = "";
                                 passwordController.text = "";
                                 mainprov.login(email, password,
-                                    (String username){
+                                    (String username) {
                                   // Tandai bahwa login berhasil
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
-                                    content: Text("Selamat datang di bagibagi.id"),
+                                    content:
+                                        Text("Selamat datang di bagibagi.id"),
                                     duration: Duration(milliseconds: 900),
                                   ));
                                   // Tampilkan halaman Home dan hapus stack halaman sebelumnya
