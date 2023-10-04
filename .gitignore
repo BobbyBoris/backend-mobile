@@ -1,0 +1,11 @@
+/*
+
+!lib/
+!assets/
+!pubspec.lock
+!pubspec.yaml
+!.git/
+!fonts/
+!.gitignore
+!AndroidManifest.xml
+!README.md
