@@ -36,10 +36,10 @@ class _MainHomeState extends State<MainHome> {
             padding: const EdgeInsets.all(20.0),
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -78,9 +78,6 @@ class _MainHomeState extends State<MainHome> {
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    width: 10,
                   ),
                   ElevatedButton(
                       style: ButtonStyle(
