@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:universal_html/html.dart' as html;
+// import 'package:universal_html/html.dart' as html;
 import 'package:universal_io/io.dart';
 
 import '../providers/provUtama.dart';
@@ -35,18 +35,18 @@ class _AboutState extends State<About> {
       }
     }
 
-    openUrl(String urltujuan) async {
-      Uri _urlUri = Uri.parse(urltujuan);
-      if (kIsWeb) {
-        html.window.open(urltujuan, "Sosial Media");
-      } else if (Platform.isAndroid) {
-        if (await canLaunch(_urlUri.toString())) {
-          launch(_urlUri.toString(), forceSafariVC: false);
-        }
-      } else {
-        print("Platform not supported");
-      }
-    }
+    // openUrl(String urltujuan) async {
+    //   Uri _urlUri = Uri.parse(urltujuan);
+    //   if (kIsWeb) {
+    //     html.window.open(urltujuan, "Sosial Media");
+    //   } else if (Platform.isAndroid) {
+    //     if (await canLaunch(_urlUri.toString())) {
+    //       launch(_urlUri.toString(), forceSafariVC: false);
+    //     }
+    //   } else {
+    //     print("Platform not supported");
+    //   }
+    // }
 
     return Template(
       child: SingleChildScrollView(
@@ -78,23 +78,23 @@ class _AboutState extends State<About> {
                 SizedBox(
                   height: 7,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () async {
-                        openUrl(userData['youtube'] ?? 'https://www.youtube.com/@VALORANTEsportsIndonesia');
-                      },
-                      child: Image.asset("assets/youtube.png"),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        openUrl(userData['twitch'] ?? 'https://www.twitch.tv/tarik');
-                      },
-                      child: Image.asset("assets/twitch.png"),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     TextButton(
+                //       onPressed: () async {
+                //         openUrl(userData['youtube'] ?? 'https://www.youtube.com/@VALORANTEsportsIndonesia');
+                //       },
+                //       child: Image.asset("assets/youtube.png"),
+                //     ),
+                //     TextButton(
+                //       onPressed: () async {
+                //         openUrl(userData['twitch'] ?? 'https://www.twitch.tv/tarik');
+                //       },
+                //       child: Image.asset("assets/twitch.png"),
+                //     ),
+                //   ],
+                // ),
                 SizedBox(
                   height: 10,
                 ),
