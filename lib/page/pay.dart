@@ -36,8 +36,8 @@ class _PaymentState extends State<Payment> {
 
     var user;
 
-    for (var i in mainProv.daftarakun){
-      if(i["username"] == usernamePenerima){
+    for (var i in mainProv.daftarakun) {
+      if (i["username"] == usernamePenerima) {
         user = i;
       }
     }
