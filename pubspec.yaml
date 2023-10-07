@@ -43,6 +43,7 @@ dependencies:
   universal_io: ^2.2.0
   intl: ^0.18.1
   uuid: ^3.0.7
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

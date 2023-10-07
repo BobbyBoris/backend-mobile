@@ -24,7 +24,7 @@ class _AboutUsState extends State<AboutUs> {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
                 const Text(
                   " > About Us < ",
@@ -44,7 +44,7 @@ class _AboutUsState extends State<AboutUs> {
                         padding: EdgeInsets.all(10.0),
                         child: Text(
                           "Mission",
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 21),
                         ),
                       ),
                       const Padding(
@@ -74,9 +74,9 @@ class _AboutUsState extends State<AboutUs> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const [
-                                Text("JIKKY",
+                                Text("BOBBY BORIS FEBRIAN BAKARA",
                                     style: TextStyle(color: Colors.white)),
-                                Text("211110217",
+                                Text("211112299",
                                     style: TextStyle(color: Colors.white))
                               ],
                             ),
@@ -87,21 +87,21 @@ class _AboutUsState extends State<AboutUs> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const CircleAvatar(
-                            backgroundImage: AssetImage('assets/jokowi.jpg'),
-                          ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: const [
-                                Text("LUKMAN HAKIM",
+                                Text("ALWI ALPARIJI JASWITAN",
                                     style: TextStyle(color: Colors.white)),
-                                Text("211111578",
+                                Text("211112093",
                                     style: TextStyle(color: Colors.white))
                               ],
                             ),
-                          )
+                          ),
+                          const CircleAvatar(
+                            backgroundImage: AssetImage('assets/jokowi.jpg'),
+                          ),
                         ],
                       ),
                       const Divider(height: 5),
@@ -116,9 +116,9 @@ class _AboutUsState extends State<AboutUs> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const [
-                                Text("BOBBY BORIS FEBRIAN BAKARA",
+                                Text("ADITYA SYAHPUTRA SINAGA",
                                     style: TextStyle(color: Colors.white)),
-                                Text("211112299",
+                                Text("211111597",
                                     style: TextStyle(color: Colors.white))
                               ],
                             ),
@@ -129,13 +129,105 @@ class _AboutUsState extends State<AboutUs> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: const [
+                                Text("NANDA PRAYOGA",
+                                    style: TextStyle(color: Colors.white)),
+                                Text("211111476",
+                                    style: TextStyle(color: Colors.white))
+                              ],
+                            ),
+                          ),
+                          const CircleAvatar(
+                            backgroundImage: AssetImage('assets/jokowi.jpg'),
+                          ),
+                        ],
+                      ),
+                      const Divider(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
                           const CircleAvatar(
                             backgroundImage: AssetImage('assets/jokowi.jpg'),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text("JEKSON SIAHAAN",
+                                    style: TextStyle(color: Colors.white)),
+                                Text("211111240",
+                                    style: TextStyle(color: Colors.white))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      const Divider(
+                        height: 5,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          "Honorable Mention",
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const CircleAvatar(
+                            backgroundImage: AssetImage('assets/jokowi.jpg'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text("JIKKY",
+                                    style: TextStyle(color: Colors.white)),
+                                Text("211110217",
+                                    style: TextStyle(color: Colors.white))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      const Divider(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
+                              children: const [
+                                Text("LUKMAN HAKIM",
+                                    style: TextStyle(color: Colors.white)),
+                                Text("211111578",
+                                    style: TextStyle(color: Colors.white))
+                              ],
+                            ),
+                          ),
+                          const CircleAvatar(
+                            backgroundImage: AssetImage('assets/jokowi.jpg'),
+                          ),
+                        ],
+                      ),
+                      const Divider(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const CircleAvatar(
+                            backgroundImage: AssetImage('assets/jokowi.jpg'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: const [
                                 Text("M. AULIA KAHFI",
                                     style: TextStyle(color: Colors.white)),

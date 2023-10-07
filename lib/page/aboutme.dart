@@ -82,8 +82,6 @@ class _AboutMeState extends State<AboutMe> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final mainprov = Provider.of<ProvUtama>(context);
@@ -107,10 +105,10 @@ class _AboutMeState extends State<AboutMe> {
                   border: Border.all(color: Color(0xff0C5513))),
               child: Column(children: [
                 Data(
-                      email: dataAkun["email"],
-                      username: dataAkun["username"],
-                      nama: dataAkun["nama"],
-                      ),
+                  email: dataAkun["email"],
+                  username: dataAkun["username"],
+                  nama: dataAkun["nama"],
+                ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -143,7 +141,9 @@ class _AboutMeState extends State<AboutMe> {
                   height: 10,
                 ),
                 DonationScreen(),
-                SizedBox(height: 15,),
+                SizedBox(
+                  height: 15,
+                ),
                 Container(
                   decoration: BoxDecoration(color: Color(0xffD9D9D9)),
                   child: Column(

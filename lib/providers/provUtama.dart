@@ -689,7 +689,6 @@ class ProvUtama extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void changeOption(int idx) {
     for (int i = 0; i < _timeOpt.length; i++) {
       if (i == idx) {
@@ -810,7 +809,7 @@ class ProvUtama extends ChangeNotifier {
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       "username": username,
       "nama": nama,
-      "img" : "assets/jokowi.jpg",
+      "img": "assets/jokowi.jpg",
       "email": email,
       "tanggal_lahir": tanggal_lahir,
       "password": password,
@@ -847,10 +846,9 @@ class ProvUtama extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Map<String,dynamic>> sortedakun = [];
+  List<Map<String, dynamic>> sortedakun = [];
 
-  void earlyAll(){
-    
+  void earlyAll() {
     dynamic _sorted = _daftarakun;
     int lengthOfArray = _sorted.length;
     for (int i = 0; i < lengthOfArray - 1; i++) {
@@ -864,17 +862,18 @@ class ProvUtama extends ChangeNotifier {
       }
     }
     sortedakun = _sorted;
-
   }
-  void byAll(){
+
+  void byAll() {
     updateTotalPendapatan();
-    
+
     dynamic _sortedall = _daftarakun;
-    
+
     int lengthOfArray = _sortedall.length;
     for (int i = 0; i < lengthOfArray - 1; i++) {
       for (int j = 0; j < lengthOfArray - i - 1; j++) {
-        if (_sortedall[j]["totalPendapatan"] < _sortedall[j + 1]["totalPendapatan"]) {
+        if (_sortedall[j]["totalPendapatan"] <
+            _sortedall[j + 1]["totalPendapatan"]) {
           // Swapping using temporary variable
           dynamic temp = _sortedall[j];
           _sortedall[j] = _sortedall[j + 1];
@@ -885,51 +884,20 @@ class ProvUtama extends ChangeNotifier {
     sortedakun = _sortedall;
     notifyListeners();
   }
-  
-  void byYear(){
-    
+
+  void byYear() {
     dynamic _sorted = _daftarakun;
 
     int _totalP = 0;
 
-    for (int i = 0; i < _sorted.length; i++){
-      for(int j = 0; j < _sorted[i]["diterima"].length; j++){
-        if(_sorted[i]["diterima"][j]["tgl"].year == DateTime.now().year){
+    for (int i = 0; i < _sorted.length; i++) {
+      for (int j = 0; j < _sorted[i]["diterima"].length; j++) {
+        if (_sorted[i]["diterima"][j]["tgl"].year == DateTime.now().year) {
           _totalP += _sorted[i]["diterima"][j]["jumlah"] as int;
         }
       }
-        _sorted[i]["totalPendapatan"] = _totalP;
-        _totalP = 0;
-    }
-
-    int lengthOfArray = _sorted.length;
-    for (int i = 0; i < lengthOfArray - 1; i++) {
-      for (int j = 0; j < lengthOfArray - i - 1; j++) {
-        if (_sorted[j]["totalPendapatan"] < _sorted[j + 1]["totalPendapatan"]) {
-          // Swapping using temporary variable
-          dynamic temp = _sorted[j];
-          _sorted[j] = _sorted[j + 1];
-          _sorted[j + 1] = temp;
-        }
-      }
-    }
-    sortedakun = _sorted;
-    notifyListeners();
-  }
-  void byMonth(){
-    
-    dynamic _sorted = _daftarakun;
-
-    int _totalP = 0;
-
-    for (int i = 0; i < _sorted.length; i++){
-      for(int j = 0; j < _sorted[i]["diterima"].length; j++){
-        if(_sorted[i]["diterima"][j]["tgl"].month == DateTime.now().month){
-          _totalP += _sorted[i]["diterima"][j]["jumlah"] as int;
-        }
-      }
-        _sorted[i]["totalPendapatan"] = _totalP;
-        _totalP = 0;
+      _sorted[i]["totalPendapatan"] = _totalP;
+      _totalP = 0;
     }
 
     int lengthOfArray = _sorted.length;
@@ -947,4 +915,33 @@ class ProvUtama extends ChangeNotifier {
     notifyListeners();
   }
 
+  void byMonth() {
+    dynamic _sorted = _daftarakun;
+
+    int _totalP = 0;
+
+    for (int i = 0; i < _sorted.length; i++) {
+      for (int j = 0; j < _sorted[i]["diterima"].length; j++) {
+        if (_sorted[i]["diterima"][j]["tgl"].month == DateTime.now().month) {
+          _totalP += _sorted[i]["diterima"][j]["jumlah"] as int;
+        }
+      }
+      _sorted[i]["totalPendapatan"] = _totalP;
+      _totalP = 0;
+    }
+
+    int lengthOfArray = _sorted.length;
+    for (int i = 0; i < lengthOfArray - 1; i++) {
+      for (int j = 0; j < lengthOfArray - i - 1; j++) {
+        if (_sorted[j]["totalPendapatan"] < _sorted[j + 1]["totalPendapatan"]) {
+          // Swapping using temporary variable
+          dynamic temp = _sorted[j];
+          _sorted[j] = _sorted[j + 1];
+          _sorted[j + 1] = temp;
+        }
+      }
+    }
+    sortedakun = _sorted;
+    notifyListeners();
+  }
 }

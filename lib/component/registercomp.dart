@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:agile02/providers/data_provider.dart';
 import 'package:intl/intl.dart';
-
 import '../providers/provUtama.dart';
 
 class RegisterComp extends StatefulWidget {
@@ -65,7 +64,7 @@ class _RegisterCompState extends State<RegisterComp> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 70),
+              SizedBox(height: 20),
               const Text(
                 "Register",
                 style: TextStyle(
@@ -214,7 +213,8 @@ class _RegisterCompState extends State<RegisterComp> {
                               });
                             }
                             // setState(() {});
-                            if (password.text == konfirmasipassword.text && username.text.length >= 5) {
+                            if (password.text == konfirmasipassword.text &&
+                                username.text.length >= 5) {
                               // "username": "JokotiHD",
                               // "nama": "Joko",
                               // "email": "asd",
@@ -222,13 +222,10 @@ class _RegisterCompState extends State<RegisterComp> {
                               // "password": "asd",
                               // "totalPendapatan" : 0,
                               // "danaSekarang" : 0,
-                              mainprov.addakun(
-                                  username.text,
-                                  nama.text,
-                                  email.text,
-                                  tglLahir!,
-                                  password.text);
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              mainprov.addakun(username.text, nama.text,
+                                  email.text, tglLahir!, password.text);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
                                 duration: Duration(milliseconds: 800),
                                 content: Text("Berhasil menambahkan akun"),
                               ));
