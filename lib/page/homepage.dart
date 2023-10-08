@@ -1,3 +1,4 @@
+import 'package:agile02/page/about.dart';
 import 'package:agile02/page/listcreator.dart';
 import 'package:agile02/page/login.dart';
 import 'package:agile02/page/register.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/provUtama.dart';
 import '../temp.dart';
@@ -17,12 +19,30 @@ class MainHome extends StatefulWidget {
 }
 
 class _MainHomeState extends State<MainHome> {
-  TextEditingController usernameInputRegister = TextEditingController();
+  TextEditingController _usernameInputController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     Provider.of<ProvUtama>(context, listen: false).updateTotalPendapatan();
     Provider.of<ProvUtama>(context, listen: false).earlyAll();
+
+    // Cek apakah pencarian sebelumnya telah dilakukan
+    checkLastVisitedUsername();
+  }
+
+  void checkLastVisitedUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? lastVisitedUsername = prefs.getString('lastVisitedUsername');
+    if (lastVisitedUsername != null) {
+      // Navigasi ke halaman about jika ada pencarian sebelumnya
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => About(username: lastVisitedUsername),
+        ),
+      );
+    }
   }
 
   @override
@@ -148,7 +168,7 @@ class _MainHomeState extends State<MainHome> {
                       Expanded(
                         flex: 3,
                         child: TextField(
-                          controller: usernameInputRegister,
+                          controller: _usernameInputController,
                           decoration: InputDecoration(
                               border: null, hintText: "bagibagi.id/"),
                         ),
@@ -162,9 +182,9 @@ class _MainHomeState extends State<MainHome> {
                                   MaterialPageRoute(
                                       builder: (_) => Register(
                                           usernameInputRegister:
-                                              usernameInputRegister)));
+                                              _usernameInputController)));
 
-                              usernameInputRegister.clear();
+                              _usernameInputController.clear();
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(

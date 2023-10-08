@@ -5,6 +5,7 @@ import 'package:agile02/temp.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 // import 'package:universal_html/html.dart' as html;
 import 'package:universal_io/io.dart';
@@ -24,13 +25,27 @@ class _AboutState extends State<About> {
   bool isFollowing = false;
 
   @override
+  void initState() {
+    super.initState();
+    // Cek dan simpan username pengguna ke SharedPreferences saat halaman ini diinisialisasi
+    saveLastVisitedUsername(widget.username);
+  }
+
+  void saveLastVisitedUsername(String username) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(
+        'lastVisitedUsername'); // Hapus lastVisitedUsername saat halaman ini dimuat
+    prefs.setString('lastVisitedUsername', username);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final dataprovider = Provider.of<ProvUtama>(context);
 
     dynamic userData;
 
-    for(var dat in dataprovider.daftarakun){
-      if(dat["username"] == widget.username){
+    for (var dat in dataprovider.daftarakun) {
+      if (dat["username"] == widget.username) {
         userData = dat;
       }
     }
@@ -158,11 +173,16 @@ class _AboutState extends State<About> {
                             ),
                           ),
                           onPressed: () {
-                            if(dataprovider.islogin == ""){
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Perlu login untuk melanjutkan"), duration: Duration(milliseconds: 1000),));
+                            if (dataprovider.islogin == "") {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text("Perlu login untuk melanjutkan"),
+                                duration: Duration(milliseconds: 1000),
+                              ));
                               Navigator.pop(context);
-                              Navigator.push(context, MaterialPageRoute(builder: (_) => Login()));
-                            }else{
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (_) => Login()));
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -192,17 +212,17 @@ class _AboutState extends State<About> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      if(dataprovider.islogin == ""){
+                      if (dataprovider.islogin == "") {
                         ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Diharuskan untuk login"),
-                          duration: Duration(milliseconds: 800),
-                        ),
-                      );
-                      Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (_) => Login()));
-                      }
-                      else{
+                          SnackBar(
+                            content: Text("Diharuskan untuk login"),
+                            duration: Duration(milliseconds: 800),
+                          ),
+                        );
+                        Navigator.pop(context);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => Login()));
+                      } else {
                         setState(() {
                           isFollowing = true;
                         });

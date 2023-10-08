@@ -77,7 +77,9 @@ class _ListaccState extends State<Listacc> {
                 ),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             if (searchinput != "")
               Container(
                 width: 700,
@@ -103,7 +105,7 @@ class _ListaccState extends State<Listacc> {
                       },
                       child: Card(
                         child: Container(
-                          width: MediaQuery.of(context).size.width/2.3,
+                          width: MediaQuery.of(context).size.width / 2.3,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
