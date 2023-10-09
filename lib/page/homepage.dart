@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../MainHome.dart';
 import '../providers/provUtama.dart';
 import '../temp.dart';
 
@@ -28,21 +29,6 @@ class _MainHomeState extends State<MainHome> {
     Provider.of<ProvUtama>(context, listen: false).earlyAll();
 
     // Cek apakah pencarian sebelumnya telah dilakukan
-    checkLastVisitedUsername();
-  }
-
-  void checkLastVisitedUsername() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? lastVisitedUsername = prefs.getString('lastVisitedUsername');
-    if (lastVisitedUsername != null) {
-      // Navigasi ke halaman about jika ada pencarian sebelumnya
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => About(username: lastVisitedUsername),
-        ),
-      );
-    }
   }
 
   @override
@@ -107,8 +93,28 @@ class _MainHomeState extends State<MainHome> {
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18)))),
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => Login()));
+                        void checkLastVisitedUsername() async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          String? loginUser = prefs.getString('lastLoginUser');
+                          if (loginUser == null) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) => Login()));
+                          } else if (loginUser != null) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text("Login kembali melalui shared pref"),
+                              duration: Duration(milliseconds: 900),
+                            ));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UtamaHome()),
+                            );
+                          }
+                        }
+
+                        checkLastVisitedUsername();
                       },
                       child: Row(
                         children: [

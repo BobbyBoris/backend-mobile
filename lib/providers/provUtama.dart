@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProvUtama extends ChangeNotifier {
   dynamic _islogin = "";
@@ -775,7 +776,7 @@ class ProvUtama extends ChangeNotifier {
   }
 
   void login(String email, String password, Function(String username) onSuccess,
-      Function(String) onError) {
+      Function(String) onError) async {
     bool isLoginSuccessful = false;
     dynamic _userlogin = '';
     for (int i = 0; i < _daftarakun.length; i++) {
@@ -783,6 +784,10 @@ class ProvUtama extends ChangeNotifier {
           (_daftarakun[i]['password'] == password)) {
         isLoginSuccessful = true;
         _islogin = _daftarakun[i];
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.remove(
+            'lastLoginUser'); // Hapus lastLoginUser saat halaman ini dimuat
+        prefs.setString('lastLoginUser', _daftarakun[i]["username"]);
         indexlogin = i;
         break;
       }
@@ -848,7 +853,19 @@ class ProvUtama extends ChangeNotifier {
 
   List<Map<String, dynamic>> sortedakun = [];
 
-  void earlyAll() {
+  void earlyAll() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int idx = 0;
+    if (prefs.getString("lastLoginUser") != null) {
+      for (dynamic i in _daftarakun) {
+        if (i["username"] == prefs.getString("lastLoginUser")) {
+          setislogin = i;
+          indexlogin = idx;
+          break;
+        }
+        idx += 1;
+      }
+    }
     dynamic _sorted = _daftarakun;
     int lengthOfArray = _sorted.length;
     for (int i = 0; i < lengthOfArray - 1; i++) {

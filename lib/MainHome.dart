@@ -5,6 +5,7 @@ import 'package:agile02/page/listcreator.dart';
 import 'package:agile02/providers/pageProv.dart';
 import 'package:agile02/providers/provUtama.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 class UtamaHome extends StatefulWidget {
@@ -63,20 +64,20 @@ class _UtamaHomeState extends State<UtamaHome> {
                         MaterialPageRoute(builder: (_) => UtamaHome()));
                   } else if (value == "logout") {
                     logout() async {
-                      Navigator.pop(context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => MainHome()));
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.remove('lastLoginUser');
+                      Navigator.of(context).popUntil((route) => route.isFirst);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("Berhasil LogOut"),
                         duration: Duration(milliseconds: 900),
                       ));
-                      setState(() {
-                        user.setislogin = "";
-                        pageprov.setselectedPage = 0;
-                      });
                     }
 
                     logout();
+                    setState(() {
+                      pageprov.setselectedPage = 0;
+                    });
                   }
                 }
               },
