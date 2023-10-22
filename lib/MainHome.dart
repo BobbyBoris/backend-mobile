@@ -1,3 +1,5 @@
+import 'package:agile02/component/date.dart';
+import 'package:agile02/component/httphelper.dart';
 import 'package:agile02/page/aboutme.dart';
 import 'package:agile02/page/aboutus.dart';
 import 'package:agile02/page/homepage.dart';
@@ -5,6 +7,7 @@ import 'package:agile02/page/listcreator.dart';
 import 'package:agile02/providers/pageProv.dart';
 import 'package:agile02/providers/provUtama.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
@@ -16,14 +19,75 @@ class UtamaHome extends StatefulWidget {
 }
 
 class _UtamaHomeState extends State<UtamaHome> {
+  final HttpHelper _httpHelper = HttpHelper();
+
   @override
   Widget build(BuildContext context) {
     final pageprov = Provider.of<PageProv>(context);
     final user = Provider.of<ProvUtama>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: Container(),
-        title: Image.asset('assets/title.png'),
+        toolbarHeight: 70,
+        title: Row(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: FutureBuilder<DateData>(
+                future: _httpHelper.getTimeForCity("Asia/Jakarta"),
+                builder: (context, AsyncSnapshot<DateData> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator(
+                      color: Colors.white,
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text(
+                      'Error: ${snapshot.error}',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    );
+                  } else if (!snapshot.hasData) {
+                    return Text(
+                      'No data available',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    );
+                  } else {
+                    DateData date = snapshot.data!;
+                    String formattedDate = DateFormat('dd/MM/yy')
+                        .format(DateTime.parse(date.datetime));
+                    String formattedDay = DateFormat('EEEE')
+                        .format(DateTime.parse(date.datetime));
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 11.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            '$formattedDate',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                            ),
+                          ),
+                          Text(
+                            '$formattedDay',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+            Spacer(),
+            Image.asset('assets/title.png'),
+          ],
+        ),
         actions: [
           if (user.islogin != "")
             PopupMenuButton<String>(
@@ -47,7 +111,6 @@ class _UtamaHomeState extends State<UtamaHome> {
                     },
                   );
                 } else {
-                  // Aksi yang diambil saat menu dipilih
                   if (value == 'home') {
                     setState(() {
                       pageprov.setselectedPage = 0;
@@ -126,10 +189,9 @@ class _UtamaHomeState extends State<UtamaHome> {
                   ? Listacc()
                   : pageprov.selectedPage == 2
                       ? AboutUs()
-                      : Container()
+                      : Container(),
         ],
       ),
     );
-    ;
   }
 }
