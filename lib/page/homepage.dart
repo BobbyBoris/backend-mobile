@@ -7,7 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'analytics.dart';
 import '../MainHome.dart';
 import '../providers/provUtama.dart';
 import '../temp.dart';
@@ -21,6 +21,7 @@ class MainHome extends StatefulWidget {
 
 class _MainHomeState extends State<MainHome> {
   TextEditingController _usernameInputController = TextEditingController();
+  Analytics firebaseAnalytic = Analytics();
 
   @override
   void initState() {
@@ -46,28 +47,13 @@ class _MainHomeState extends State<MainHome> {
                 children: [
                   InkWell(
                     onTap: () {
+                      firebaseAnalytic.testEventlog(
+                          "Cari"); // Add this line for analytics event
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => Template(child: Listacc())));
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (BuildContext context) {
-                      //     return AlertDialog(
-                      //       title: Text("Informasi"),
-                      //       content: Text(
-                      //           "Anda harus Login untuk melihat atau mencari Creator"),
-                      //       actions: [
-                      //         TextButton(
-                      //           onPressed: () {
-                      //             Navigator.of(context).pop();
-                      //           },
-                      //           child: Text("OK"),
-                      //         ),
-                      //       ],
-                      //     );
-                      //   },
-                      // );
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => Template(child: Listacc())),
+                      );
                     },
                     child: Row(
                       children: [
@@ -93,6 +79,7 @@ class _MainHomeState extends State<MainHome> {
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18)))),
                       onPressed: () {
+                        firebaseAnalytic.testEventlog("Login");
                         void checkLastVisitedUsername() async {
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
@@ -183,6 +170,7 @@ class _MainHomeState extends State<MainHome> {
                         flex: 2,
                         child: ElevatedButton(
                             onPressed: () async {
+                              firebaseAnalytic.testEventlog("Buat_Akun");
                               await Navigator.push(
                                   context,
                                   MaterialPageRoute(

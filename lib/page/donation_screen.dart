@@ -6,8 +6,16 @@ import 'package:agile02/providers/donation_model.dart';
 import 'package:agile02/providers/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'analytics.dart';
 
-class DonationScreen extends StatelessWidget {
+class DonationScreen extends StatefulWidget {
+  @override
+  State<DonationScreen> createState() => _DonationScreenState();
+}
+
+class _DonationScreenState extends State<DonationScreen> {
+  Analytics firebaseAnalytic = Analytics();
+
   @override
   Widget build(BuildContext context) {
     final provUtama = Provider.of<ProvUtama>(context);
@@ -96,15 +104,17 @@ class DonationScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: provUtama.islogin["danaSekarang"] != 0
-              ?() {
-                // Handle penarikan dana
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WD(),
-                  ),
-                );
-              } : null,
+                  ? () {
+                      firebaseAnalytic.testEventlog("Penarikan_Dana");
+                      // Handle penarikan dana
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WD(),
+                        ),
+                      );
+                    }
+                  : null,
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF30A92D),
               ),

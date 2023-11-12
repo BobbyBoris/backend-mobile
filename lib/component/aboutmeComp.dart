@@ -9,7 +9,11 @@ class Data extends StatelessWidget {
   String email;
   String username;
   String nama;
-  Data({super.key, required this.email, required this.username, required this.nama});
+  Data(
+      {super.key,
+      required this.email,
+      required this.username,
+      required this.nama});
 
   tableRowCostum(Widget leading, String text) {
     return TableRow(children: [
@@ -92,12 +96,12 @@ class Data extends StatelessWidget {
                     1: FractionColumnWidth(0.75),
                   },
                   children: [
-                    tableRowCostum(Icon(Icons.people, color: Color(0xff0C5513)),
-                        nama),
-                    tableRowCostum(Icon(Icons.link, color: Color(0xff0C5513)),
-                        username),
-                    tableRowCostum(Icon(Icons.email, color: Color(0xff0C5513)),
-                        email),
+                    tableRowCostum(
+                        Icon(Icons.people, color: Color(0xff0C5513)), nama),
+                    tableRowCostum(
+                        Icon(Icons.link, color: Color(0xff0C5513)), username),
+                    tableRowCostum(
+                        Icon(Icons.email, color: Color(0xff0C5513)), email),
                   ],
                 ),
               ),

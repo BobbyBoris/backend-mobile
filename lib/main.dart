@@ -5,15 +5,16 @@ import 'package:agile02/providers/pageProv.dart';
 import 'package:agile02/providers/payment_opt_prov.dart';
 import 'package:agile02/providers/provUtama.dart';
 import 'package:agile02/providers/trending_data.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:agile02/providers/data_provider.dart';
-
 import 'providers/donation_provider.dart';
-
 import 'page/homepage.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

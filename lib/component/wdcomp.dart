@@ -1,7 +1,7 @@
 import 'package:agile02/providers/provUtama.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:agile02/page/analytics.dart';
 import 'package:intl/intl.dart';
 
 class WDComp extends StatefulWidget {
@@ -22,6 +22,7 @@ class _WDCompState extends State<WDComp> {
   TextEditingController namabank = TextEditingController();
   TextEditingController norek = TextEditingController();
   TextEditingController an = TextEditingController();
+  Analytics firebaseAnalytic = Analytics();
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<ProvUtama>(context);
@@ -225,6 +226,7 @@ class _WDCompState extends State<WDComp> {
                           children: [
                             ElevatedButton(
                               onPressed: () {
+                                firebaseAnalytic.testEventlog("Tarik");
                                 if (metodePenarikan != null &&
                                     jumlahwd.text != "" &&
                                     jumlahwd.text != "0" &&

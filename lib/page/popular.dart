@@ -16,7 +16,6 @@ class Popular extends StatefulWidget {
 }
 
 class _PopularState extends State<Popular> {
-
   @override
   Widget build(BuildContext context) {
     final mainprov = Provider.of<ProvUtama>(context);
@@ -116,8 +115,8 @@ class _PopularState extends State<Popular> {
                             ),
                             subtitle: Text(
                               "RP. ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(mainprov.sortedakun[index]["totalPendapatan"])}",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           ),
                         )),
