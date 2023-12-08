@@ -6,6 +6,8 @@ import 'package:agile02/providers/payment_opt_prov.dart';
 import 'package:agile02/providers/provUtama.dart';
 import 'package:agile02/providers/trending_data.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:agile02/providers/data_provider.dart';
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    LocalJsonLocalization.delegate.directories = ['lib/i18n'];
     return MultiProvider(
       providers: [
         //isi disini provider yng mo kelen pake contohnya dibawah
@@ -39,6 +42,24 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProvUtama()),
       ],
       child: MaterialApp(
+        supportedLocales: const [
+          Locale('en', 'US'),
+          Locale('de', 'DE'),
+          Locale('id', 'ID'),
+          Locale('ja', 'JP'),
+          Locale('fil', 'PH'),
+        ],
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          LocalJsonLocalization.delegate,
+        ],
+        localeResolutionCallback: (locale, supportedLocales) {
+          if (supportedLocales.contains(locale)) {
+            return locale;
+          }
+          return const Locale('id', 'ID');
+        },
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
