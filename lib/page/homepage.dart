@@ -1,10 +1,8 @@
-import 'package:agile02/page/about.dart';
 import 'package:agile02/page/listcreator.dart';
 import 'package:agile02/page/login.dart';
 import 'package:agile02/page/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,14 +23,17 @@ class _MainHomeState extends State<MainHome> {
   Analytics firebaseAnalytic = Analytics();
 
   final List<Locale> supportedLocales = [
-    Locale('en', 'US'),
-    Locale('de', 'DE'),
     Locale('id', 'ID'),
+    Locale('en', 'US'),
+    Locale('ms', 'MY'),
+    Locale('ko', 'KR'),
+    Locale('de', 'DE'),
     Locale('ja', 'JP'),
     Locale('fil', 'PH'),
   ];
 
-  Locale selectedLocale = Locale('id', 'ID'); // Default locale
+  Locale selectedLocale = Locale('en', 'US');
+  // Default locale
 
   void _changeLanguage(Locale locale) {
     LocalJsonLocalization.delegate.load(locale);
@@ -232,11 +233,10 @@ class _MainHomeState extends State<MainHome> {
             ),
             // Dropdown Button
             SizedBox(
-              height: 20, // Adjust the height as needed
+              height: 20,
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height *
-                  0.6, // Adjust this value for positioning
+              bottom: MediaQuery.of(context).size.height * 0.6,
               right: 20.0,
               child: Container(
                 decoration: BoxDecoration(
@@ -245,8 +245,7 @@ class _MainHomeState extends State<MainHome> {
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
                 child: DropdownButton<Locale>(
-                  value:
-                      selectedLocale, // Use selectedLocale as the current value
+                  value: selectedLocale,
                   items: supportedLocales.map((Locale locale) {
                     return DropdownMenuItem<Locale>(
                       value: locale,

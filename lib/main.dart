@@ -42,24 +42,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProvUtama()),
       ],
       child: MaterialApp(
-        supportedLocales: const [
-          Locale('en', 'US'),
-          Locale('de', 'DE'),
-          Locale('id', 'ID'),
-          Locale('ja', 'JP'),
-          Locale('fil', 'PH'),
-        ],
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           LocalJsonLocalization.delegate,
         ],
-        localeResolutionCallback: (locale, supportedLocales) {
-          if (supportedLocales.contains(locale)) {
-            return locale;
-          }
-          return const Locale('id', 'ID');
-        },
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
