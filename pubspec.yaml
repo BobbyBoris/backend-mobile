@@ -51,6 +51,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   easy_localization: ^3.0.3
+  google_mobile_ads: ^2.2.0
 
 dev_dependencies:
   flutter_test:

@@ -7,6 +7,7 @@ import 'package:agile02/providers/provUtama.dart';
 import 'package:agile02/providers/trending_data.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ import 'page/homepage.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  MobileAds.instance.initialize();
   runApp(const MyApp());
 }
 
