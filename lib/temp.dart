@@ -1,9 +1,7 @@
-import 'package:agile02/MainHome.dart';
-import 'package:agile02/page/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:agile02/providers/data_provider.dart';
 import 'package:agile02/providers/pageProv.dart';
 
@@ -18,11 +16,13 @@ class Template extends StatefulWidget {
 class _TemplateState extends State<Template> {
   late BannerAd _bannerAd;
   bool _isBannerReady = false;
+  bool _isBannerEnabled = true;
 
   @override
   void initState() {
     super.initState();
     _loadBannerAd();
+    _loadBannerStatus(); // Tambahkan ini untuk memeriksa status penonaktifan
   }
 
   @override
@@ -39,11 +39,18 @@ class _TemplateState extends State<Template> {
               onSelected: (String value) {},
               itemBuilder: (BuildContext context) => [],
             ),
+          IconButton(
+            icon: Icon(
+                _isBannerEnabled ? Icons.visibility : Icons.visibility_off),
+            onPressed: () {
+              _toggleBannerAdVisibility();
+            },
+          ),
         ],
       ),
       body: Container(
         height: MediaQuery.of(context).size.height -
-            _bannerAd.size.height.toDouble(),
+            (_isBannerEnabled ? _bannerAd.size.height.toDouble() : 0),
         child: Stack(
           children: [
             Align(
@@ -51,12 +58,12 @@ class _TemplateState extends State<Template> {
               child: Image.asset('assets/footer.png'),
             ),
             widget.child,
-            if (_isBannerReady)
+            if (_isBannerEnabled && _isBannerReady)
               Positioned(
                 bottom: 0,
                 left:
                     (MediaQuery.of(context).size.width - _bannerAd.size.width) /
-                        2, //agar banner ad di tengah
+                        2,
                 child: Container(
                   width: _bannerAd.size.width.toDouble(),
                   height: _bannerAd.size.height.toDouble(),
@@ -87,5 +94,37 @@ class _TemplateState extends State<Template> {
       request: AdRequest(),
     );
     _bannerAd.load();
+  }
+
+  void _toggleBannerAdVisibility() {
+    setState(() {
+      _isBannerEnabled = !_isBannerEnabled;
+      _saveBannerStatus();
+      if (!_isBannerEnabled) {
+        _disableBannerAdPermanently();
+      }
+    });
+  }
+
+  void _disableBannerAdPermanently() {
+    setState(() {
+      _isBannerReady = false;
+    });
+    _bannerAd.dispose();
+  }
+
+  void _saveBannerStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('bannerStatus', _isBannerEnabled);
+  }
+
+  void _loadBannerStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? bannerStatus = prefs.getBool('bannerStatus');
+    if (bannerStatus != null) {
+      setState(() {
+        _isBannerEnabled = bannerStatus;
+      });
+    }
   }
 }
