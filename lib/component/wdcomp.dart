@@ -1,5 +1,6 @@
 import 'package:agile02/providers/provUtama.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:agile02/page/analytics.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +24,43 @@ class _WDCompState extends State<WDComp> {
   TextEditingController norek = TextEditingController();
   TextEditingController an = TextEditingController();
   Analytics firebaseAnalytic = Analytics();
+
+  late InterstitialAd _interstitialAd;
+  bool _isInterstitialReady = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadinterstisialAd();
+  }
+
+  void _loadinterstisialAd() {
+    InterstitialAd.load(
+      adUnitId: "ca-app-pub-3940256099942544/1033173712",
+      request: AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          setState(() {
+            _isInterstitialReady = true;
+            _interstitialAd = ad;
+          });
+        },
+        onAdFailedToLoad: (err) {
+          _isInterstitialReady = false;
+          _interstitialAd.dispose();
+        },
+      ),
+    );
+  }
+
+  void _showInterstitialAd() {
+    if (_isInterstitialReady) {
+      _interstitialAd.show();
+    } else {
+      print("ca-app-pub-3940256099942544/1033173712");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<ProvUtama>(context);
@@ -237,6 +275,7 @@ class _WDCompState extends State<WDComp> {
                                     an.text != "") {
                                   user.transaksi(metodePenarikan!, norek.text,
                                       namabank.text, jumlahwd.text);
+                                  _showInterstitialAd();
                                   Navigator.pop(context);
                                 } else {
                                   ScaffoldMessenger.of(context)
