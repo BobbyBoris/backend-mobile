@@ -236,8 +236,8 @@ class _MainHomeState extends State<MainHome> {
               height: 20,
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.6,
-              right: 20.0,
+              bottom: MediaQuery.of(context).size.height * 0.5,
+              right: MediaQuery.of(context).size.width * 0.05,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
