@@ -10,9 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class UtamaHome extends StatefulWidget {
-  const UtamaHome({super.key});
+  const UtamaHome({Key? key}) : super(key: key);
 
   @override
   State<UtamaHome> createState() => _UtamaHomeState();
@@ -91,8 +92,21 @@ class _UtamaHomeState extends State<UtamaHome> {
         actions: [
           if (user.islogin != "")
             PopupMenuButton<String>(
-              onSelected: (String value) {
-                if (user.islogin == "") {
+              onSelected: (String value) async {
+                if (value == 'enable_location') {
+                  bool permissionGranted = await _requestLocationPermission();
+                  if (permissionGranted) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("Izin lokasi diaktifkan"),
+                      duration: Duration(milliseconds: 900),
+                    ));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("Izin lokasi ditolak"),
+                      duration: Duration(milliseconds: 900),
+                    ));
+                  }
+                } else if (user.islogin == "") {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -157,6 +171,10 @@ class _UtamaHomeState extends State<UtamaHome> {
                   value: 'logout',
                   child: Text('Logout'),
                 ),
+                const PopupMenuItem<String>(
+                  value: 'enable_location',
+                  child: Text('Aktifkan Izin Lokasi'),
+                ),
               ],
             ),
         ],
@@ -193,5 +211,10 @@ class _UtamaHomeState extends State<UtamaHome> {
         ],
       ),
     );
+  }
+
+  Future<bool> _requestLocationPermission() async {
+    PermissionStatus status = await Permission.location.request();
+    return status == PermissionStatus.granted;
   }
 }
